@@ -1,0 +1,144 @@
+---
+title: "MATH 4322 Lab 2"
+author: "Ayub Farah"
+format: pdf
+editor: visual
+---
+
+## Task 1
+
+```{r}
+library(ISLR2)
+head(Boston)
+```
+
+### Question 1
+
+For the 6th suburb of Boston what is the median house value and the average\
+number of rooms per dwelling?
+
+```{r}
+Boston[6, "rm"]
+Boston[6, "medv"]
+```
+
+## Task 2
+
+```{r}
+plot(Boston$rm,Boston$medv,xlab = "rm",ylab = "medv")
+```
+
+### Question 2
+
+According to the plot what is the relationship between median value of\
+homes and average number of rooms per dwelling?
+
+The relationship is somewhat strong, somewhat linear.
+
+## Task 3
+
+### Question 3
+
+Which observation has the largest average number of rooms per dwelling?\
+What is the largest average number of rooms per dwelling?
+
+```{r}
+max_rm <- which.max(Boston$rm)
+max_rm
+Boston[max_rm, "rm"]
+```
+
+### Question 4
+
+Which observation has the smallest average number of rooms per dwelling?\
+What is the smallest average number of rooms per dwelling?
+
+```{r}
+min_rm <- which.min(Boston$rm)
+min_rm
+Boston[min_rm, "rm"]
+```
+
+## Task 4
+
+```{r}
+lm.fit <- lm(medv ~ rm, data = Boston)
+summary(lm.fit)
+```
+
+### Question 5
+
+Give the linear model equation.
+
+$$
+\hat{y} = 9.102x - 34.671
+$$
+
+where $\hat{y}$ is predicted `medv` and $x$ is `rm`.
+
+### Question 6
+
+What is the percent of variation of `medv`that can be explained by this model?
+
+$$
+48.35\%\
+$$
+
+### Question 7
+
+Is rm a good predictor for `medv`? Justify your answer.
+
+The $R^2$ for this model is fairly low, since it explains less than half the variation in observed `medv` .
+
+## Task 5
+
+### Question 8 
+
+What is the 95% confidence interval for the slope $\beta_1$ of this model?
+
+```{r}
+confint.lm(lm.fit, level=0.9)
+```
+
+## Task 6
+
+### Question 9
+
+What is the predicted median value of homes where the average number of\
+rooms per dwelling is 5?
+
+```{r}
+ (9.102*5) - 34.671
+```
+
+## Task 7
+
+```{r}
+par(mfrow = c(2,2))
+plot(lm.fit)
+```
+
+### Question 10
+
+Do there appear to be extreme values?
+
+Yes.
+
+### Question 11
+
+Which row has the largest leverage?
+
+```{r}
+max_leverage <- which.max(hatvalues(lm.fit))
+Boston[max_leverage, ]
+```
+
+### Question 12
+
+How many average number of rooms per dwelling and what is the median\
+value of the homes in this suburb?
+
+```{r}
+Boston[max_leverage, "rm"]
+Boston[max_leverage, "medv"]
+```

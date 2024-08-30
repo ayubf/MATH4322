@@ -1,0 +1,100 @@
+---
+title: "Homework 1 - MATH 4322"
+author: "Ayub Farah"
+format: pdf
+editor: visual
+---
+
+## Problem 1
+
+a\. This is a regression and inference problem, because we are making inferences about the factors that influence CEO salary, a continuous value. Our $n$ is 500 and $p$ is 3 (inputs: profit, number of employees, industry) + 1 (output: CEO salary).
+
+b\. This is a classification and prediction problem, because we are predicting whether or not customers will default on their credit card, a categorical value. Our $n$ is 550 and $p$ is 3 (inputs: studentship, average balance after making monthly payment, income) + 1 (output: whether or not the customer defaulted).
+
+## Problem 2
+
+a\.
+
+$$
+E[\hat{\mu_1}] = E[X_1] = \mu, \ \text{Bias}(\mu_1) = E[\bar{\mu_1}] - \mu = 0 \\ 
+E[\hat{\mu_2}] = E[0.1X_1 + 0.2X_2 + 0.3X_3 + 0.4X_4] = 0.1\mu + 0.2\mu + 0.3\mu + 0.4\mu = \mu, \ \text{Bias}(\mu_2) = E[\bar{\mu_2}] - \mu = 0 \\
+E[\hat{\mu_3}] = \frac{1}{4} \sum^4_{i=1} X_i = \mu, \ \text{Bias}(\mu_3) = E[\bar{\mu_3}] - \mu = 0
+$$
+
+b\.
+
+$$
+\text{Var}[\hat{\mu_1}] = \text{Var}[X_1] = \sigma^2 \\ 
+\text{Var}[\hat{\mu_2}] = \text{Var}[0.1X_1 + 0.2X_2 + 0.3X_3 + 0.4X_4] = (0.1)^2\text{Var}(X_1) + (0.2)^2\text{Var}(X_2) + (0.3)^2\text{Var}(X_3) + (0.4)^2\text{Var}(X_4) = 0.3\sigma^2 \\ 
+\text{Var}[\hat{\mu_3}] = \text{Var}[\frac{1}{4} \sum^4_{i=1} X_i] = \frac{1}{8} \sum^4_{i=1} X_i = \frac{1}{2}\sigma^2
+$$
+
+c\. I would say $\hat{\mu_2}$ has the smallest variance at $0.3\sigma^2$.
+
+## Problem 3
+
+## Problem 4
+
+```{r}
+library(ISLR)
+auto_ds <- na.omit(Auto)
+auto_ds
+```
+
+a\.
+
+Quantitative: mpg, cylinders, displacement, horsepower, weight, acceleration.
+
+Qualitative: year, origin, name
+
+b\.
+
+mpg: 37.6, cylinders: 5, displacement: 387, horsepower: 184, weight: 3527, acceleration: 16.8
+
+```{r}
+summary(auto_ds)
+```
+
+c\.
+
+Means:
+
+mpg: 23.45, cylinders: 5.472, displacement: 194.4, horsepower: 104.5, weight: 2978, acceleration: 15.54
+
+Std:
+
+```{r}
+for (x in list(auto_ds$mpg, auto_ds$cylinders, auto_ds$displacement, auto_ds$horsepower, auto_ds$weight, auto_ds$acceleration)) {
+  print(sd(x))
+}
+```
+
+d\.
+
+```{r}
+auto_removed <- auto_ds[-(10:85)]
+summary(auto_removed)
+```
+
+```{r}
+for (x in list(auto_removed$mpg, auto_removed$cylinders, auto_removed$displacement, auto_removed$horsepower, auto_removed$weight, auto_removed$acceleration)) {
+  print(sd(x))
+}
+```
+
+## Problem 5
+
+a\.
+
+```{r}
+college <- read.csv("College.csv")
+head(college)
+```
+
+b\.
+
+```{r}
+# rownames(college) <- college[,1]
+# college <- college[,-1]
+head(college)
+```
